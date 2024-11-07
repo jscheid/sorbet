@@ -692,8 +692,7 @@ module Kernel
   # ```
   sig do
     params(
-      # `x` should be `T.self_type`, but it's blocked by https://github.com/sorbet/sorbet/issues/5632
-      blk: T.proc.params(x: T.untyped).void
+      blk: T.proc.params(x: T.self_type).void
     )
     .returns(T.self_type)
   end
@@ -3149,7 +3148,7 @@ module Kernel
   # ```
   sig do
     type_parameters(:X)
-      .params(blk: T.proc.params(arg: T.untyped).returns(T.type_parameter(:X)))
+      .params(blk: T.proc.params(arg: T.self_type).returns(T.type_parameter(:X)))
       .returns(T.type_parameter(:X))
   end
   def then(&blk); end

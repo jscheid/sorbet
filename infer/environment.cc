@@ -1699,6 +1699,11 @@ Environment::processBinding(core::Context ctx, const cfg::CFG &inWhat, cfg::Bind
                     *it =
                         core::Types::replaceSelfType(ctx, *it, ctx.owner.enclosingClass(ctx).data(ctx)->selfType(ctx));
                 }
+            } else if (auto *tupleType = core::cast_type<core::TupleType>(tp.type)) {
+                for (auto it = tupleType->elems.begin(); it != tupleType->elems.end(); ++it) {
+                    *it =
+                        core::Types::replaceSelfType(ctx, *it, ctx.owner.enclosingClass(ctx).data(ctx)->selfType(ctx));
+                }
             }
         }
 
